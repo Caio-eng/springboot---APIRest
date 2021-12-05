@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.loja.buynow.entities.Category;
 import com.loja.buynow.repositories.CategoryRepository;
+import com.loja.buynow.services.exceptions.ResourceNotFoundException;
 
 @Service	
 public class CategoryService {
@@ -21,7 +22,7 @@ public class CategoryService {
 	
 	public Category findById(Long id) {
 		Optional<Category> obj = repository.findById(id);
-		return obj.get();
+		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 }
